@@ -1,0 +1,446 @@
+<Window
+    x:Class="CuteSpace.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:CuteSpace.Models"
+    Title="CuteSpace">
+
+    <Grid x:Name="RootGrid" Background="Transparent">
+        <Grid.Resources>
+            <Style x:Key="IconText" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{ThemeResource CuteFont}"/>
+                <Setter Property="Foreground" Value="{ThemeResource CuteInkBrush}"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="{ThemeResource CuteFont}"/>
+                <Setter Property="CornerRadius" Value="14"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="Background" Value="{ThemeResource CuteCardBrush}"/>
+                <Setter Property="Foreground" Value="{ThemeResource CuteInkBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource CuteBorderBrush}"/>
+            </Style>
+
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0,0,0,8"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{ThemeResource CuteInkBrush}"/>
+            </Style>
+
+            <Style TargetType="GridViewItem">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            </Style>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="FontFamily" Value="{ThemeResource CuteFont}"/>
+                <Setter Property="Foreground" Value="{ThemeResource CuteInkBrush}"/>
+                <Setter Property="Padding" Value="10,8"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid x:Name="BubbleOnly" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border x:Name="BubbleButton"
+                    Width="92"
+                    Height="92"
+                    CornerRadius="46"
+                    Background="#FFFFD8EA"
+                    BorderBrush="#FFFFFFFF"
+                    BorderThickness="2"
+                    RenderTransformOrigin="0.5,0.5"
+                    PointerPressed="DragSurface_PointerPressed"
+                    PointerMoved="DragSurface_PointerMoved"
+                    PointerReleased="DragSurface_PointerReleased">
+                <Border.RenderTransform>
+                    <ScaleTransform x:Name="BubbleScale" ScaleX="1" ScaleY="1"/>
+                </Border.RenderTransform>
+                <Grid>
+                    <Ellipse x:Name="BubbleEarLeft" Width="24" Height="30" Fill="#FFFFC0DC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,-8,0,0" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
+                        <Ellipse.RenderTransform><RotateTransform Angle="-20"/></Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse x:Name="BubbleEarRight" Width="24" Height="30" Fill="#FFFFC0DC" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-8,4,0" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
+                        <Ellipse.RenderTransform><RotateTransform Angle="20"/></Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse x:Name="BubbleEarBearLeft" Width="24" Height="24" Fill="#FFFFC0DC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,-6,0,0" Visibility="Collapsed"/>
+                    <Ellipse x:Name="BubbleEarBearRight" Width="24" Height="24" Fill="#FFFFC0DC" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,8,0" Visibility="Collapsed"/>
+                    <Ellipse x:Name="BubbleEarBunnyLeft" Width="18" Height="42" Fill="#FFFFC0DC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,-22,0,0" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
+                        <Ellipse.RenderTransform><RotateTransform Angle="-10"/></Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse x:Name="BubbleEarBunnyRight" Width="18" Height="42" Fill="#FFFFC0DC" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-22,14,0" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed">
+                        <Ellipse.RenderTransform><RotateTransform Angle="10"/></Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse x:Name="BubbleAccentLeft" Width="28" Height="28" Fill="#FFFFC0DC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,4,0,0"/>
+                    <Ellipse x:Name="BubbleAccentRight" Width="28" Height="28" Fill="#FFFFC0DC" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,8,0"/>
+                    <Ellipse x:Name="BubbleFace" Width="66" Height="62" Fill="#FFFFF8FB" Stroke="#FFFFBBD9" StrokeThickness="2" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="BubbleBlushLeft" Width="12" Height="8" Fill="#FFFF9EC6" Opacity="0" Margin="0,8,30,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="BubbleBlushRight" Width="12" Height="8" Fill="#FFFF9EC6" Opacity="0" Margin="30,8,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="BubbleEyeLeft" Width="7" Height="9" Fill="#4A3D55" Margin="0,0,22,4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="BubbleEyeRight" Width="7" Height="9" Fill="#4A3D55" Margin="22,0,0,4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="BubbleEyeLeftHappy" Text="^" FontSize="18" FontWeight="SemiBold" Foreground="#4A3D55" Margin="0,0,22,0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <TextBlock x:Name="BubbleEyeRightHappy" Text="^" FontSize="18" FontWeight="SemiBold" Foreground="#4A3D55" Margin="22,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <Ellipse x:Name="BubbleNose" Width="10" Height="8" Fill="#7A5A69" Margin="0,12,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="BubbleMouthHappy" Text="w" FontSize="14" FontWeight="Bold" Foreground="#7A5A69" Margin="0,12,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <TextBlock x:Name="BubbleBrandText" Text="Cute"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="#A45D82"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Margin="0,0,0,13"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="PanelShell" Visibility="Collapsed" Opacity="0" Padding="10" Background="Transparent">
+            <Border x:Name="PanelFrame"
+                    CornerRadius="36"
+                    BorderBrush="#FFFFFFFF"
+                    BorderThickness="1"
+                    Background="#FFFDF8FC">
+                <Grid RowDefinitions="Auto,Auto,*,Auto">
+                    <Grid x:Name="PanelHeader"
+                          Padding="20,18,16,10"
+                          ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                        <StackPanel Spacing="1">
+                            <TextBlock x:Name="TitleText" Text="CuteSpace" FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="SubtitleText" Text="" FontSize="13" Foreground="{ThemeResource CuteMutedBrush}"/>
+                        </StackPanel>
+
+                        <Border x:Name="DragHandle"
+                                Grid.Column="1"
+                                Width="54"
+                                Height="42"
+                                Margin="0,0,8,0"
+                                CornerRadius="14"
+                                Background="{ThemeResource CuteLavenderBrush}"
+                                BorderBrush="{ThemeResource CuteBorderBrush}"
+                                BorderThickness="1"
+                                PointerPressed="DragSurface_PointerPressed"
+                                ToolTipService.ToolTip="">
+                            <TextBlock Text="↕"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="{ThemeResource CuteInkBrush}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Button x:Name="SettingsButton" Grid.Column="2" Width="42" Height="42" Padding="0" Click="SettingsButton_Click" ToolTipService.ToolTip="">
+                            <TextBlock Text="&#xE713;" Style="{StaticResource IconText}" HorizontalAlignment="Center"/>
+                        </Button>
+
+                        <Button x:Name="HideBubbleButton" Grid.Column="3" Width="42" Height="42" Padding="0" Margin="8,0,0,0" Click="HideBubbleButton_Click" ToolTipService.ToolTip="">
+                            <TextBlock Text="🧸" FontFamily="{StaticResource CuteEmojiFont}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
+
+                        <Button x:Name="ClosePanelButton" Grid.Column="4" Width="42" Height="42" Padding="0" Margin="8,0,0,0" Click="ClosePanelButton_Click" ToolTipService.ToolTip="">
+                            <TextBlock Text="&#xE711;" Style="{StaticResource IconText}" HorizontalAlignment="Center"/>
+                        </Button>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Padding="18,0,18,12" Spacing="10">
+                        <Border Background="{ThemeResource CuteLavenderBrush}" CornerRadius="18" Padding="4,4,4,4">
+                            <Grid ColumnDefinitions="*,*,*,*">
+                                <RadioButton x:Name="ModesTab" Content="Modos" GroupName="Sections" IsChecked="True" Checked="SectionTab_Checked"/>
+                                <RadioButton x:Name="ShortcutsTab" Grid.Column="1" Content="Accesos" GroupName="Sections" Checked="SectionTab_Checked"/>
+                                <RadioButton x:Name="ClipboardTab" Grid.Column="2" Content="Copiados" GroupName="Sections" Checked="SectionTab_Checked"/>
+                                <RadioButton x:Name="FocusTab" Grid.Column="3" Content="Focus" GroupName="Sections" Checked="SectionTab_Checked"/>
+                            </Grid>
+                        </Border>
+
+                        <Button x:Name="HowItWorksButton" HorizontalAlignment="Left" Click="HowItWorksButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="&#xE946;" Style="{StaticResource IconText}"/>
+                                <TextBlock x:Name="HowItWorksText" Text=""/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <Grid Grid.Row="2" Padding="18,0,18,14">
+                        <Grid x:Name="ModesView" RowDefinitions="Auto,*,Auto" RowSpacing="12">
+                            <StackPanel Spacing="12">
+                                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                                    <ComboBox x:Name="ModePicker" SelectionChanged="ModePicker_SelectionChanged" DisplayMemberPath="Name" PlaceholderText=""/>
+                                    <Button x:Name="NewModeButton" Grid.Column="1" Click="NewModeButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE710;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="DeleteModeButton" Grid.Column="2" Click="DeleteModeButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE74D;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                </Grid>
+
+                                <ToggleSwitch x:Name="StartupModeToggle"
+                                              Header=""
+                                              Toggled="StartupModeToggle_Toggled"/>
+
+                                <Button x:Name="RunModeButton" Click="RunModeButton_Click" HorizontalAlignment="Stretch" Background="{ThemeResource CutePinkBrush}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                                        <TextBlock Text="&#xE768;" Style="{StaticResource IconText}"/>
+                                        <TextBlock x:Name="RunModeText" Text=""/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                                    <Button x:Name="AddModeAppButton" Click="AddModeAppButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xECAA;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddModeExeButton" Grid.Column="1" Click="AddModeExeButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE7C3;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddModeFileButton" Grid.Column="2" Click="AddModeFileButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE8B7;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddModeUrlButton" Grid.Column="3" Click="AddModeUrlButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE774;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                </Grid>
+
+                            </StackPanel>
+
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ListView x:Name="ModeItemsList" SelectionChanged="SelectionChanged_UpdateButtons" IsItemClickEnabled="True" ItemClick="ModeItemsList_ItemClick" MinHeight="230">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:LaunchItem">
+                                            <Border Background="{ThemeResource CuteCardBrush}" CornerRadius="16" Padding="10" BorderBrush="{ThemeResource CuteBorderBrush}" BorderThickness="1">
+                                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                                <Border Width="40" Height="40" CornerRadius="20" Background="{ThemeResource CuteSkyBrush}">
+                                                    <TextBlock Text="{x:Bind IconGlyph}" FontFamily="{StaticResource CuteEmojiFont}" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <StackPanel Grid.Column="1" Spacing="2">
+                                                    <TextBlock Text="{x:Bind Name}" FontWeight="SemiBold" Foreground="{ThemeResource CuteInkBrush}"/>
+                                                    <TextBlock Text="{x:Bind DisplayTargetText}" FontSize="12" Foreground="{ThemeResource CuteMutedBrush}" TextTrimming="CharacterEllipsis"/>
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="2" Text="{x:Bind TypeLabelText}" FontSize="11" Foreground="{ThemeResource CuteAccentBrush}" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+
+                            <Grid x:Name="ModeActionsBar" Grid.Row="2" ColumnDefinitions="*,*,*,*,*" ColumnSpacing="8" Visibility="Collapsed">
+                                <Button x:Name="OpenModeItemButton" Click="OpenModeItemButton_Click" ToolTipService.ToolTip="">
+                                    <TextBlock Text="&#xE768;" Style="{StaticResource IconText}"/>
+                                </Button>
+                                <Button x:Name="EditModeItemButton" Grid.Column="1" Click="EditModeItemButton_Click" ToolTipService.ToolTip="">
+                                    <TextBlock Text="&#xE70F;" Style="{StaticResource IconText}"/>
+                                </Button>
+                                <Button x:Name="MoveModeItemUpButton" Grid.Column="2" Click="MoveModeItemUpButton_Click" ToolTipService.ToolTip="">
+                                    <TextBlock Text="&#xE70E;" Style="{StaticResource IconText}"/>
+                                </Button>
+                                <Button x:Name="MoveModeItemDownButton" Grid.Column="3" Click="MoveModeItemDownButton_Click" ToolTipService.ToolTip="">
+                                    <TextBlock Text="&#xE70D;" Style="{StaticResource IconText}"/>
+                                </Button>
+                                <Button x:Name="DeleteModeItemButton" Grid.Column="4" Click="DeleteModeItemButton_Click" ToolTipService.ToolTip="">
+                                    <TextBlock Text="&#xE74D;" Style="{StaticResource IconText}"/>
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        <Grid x:Name="ShortcutsView" Visibility="Collapsed" RowDefinitions="Auto,*,Auto" RowSpacing="12">
+                                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                                    <Button x:Name="AddShortcutAppButton" Click="AddShortcutAppButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xECAA;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddShortcutExeButton" Grid.Column="1" Click="AddShortcutExeButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE7C3;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddShortcutFileButton" Grid.Column="2" Click="AddShortcutFileButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE8B7;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                    <Button x:Name="AddShortcutUrlButton" Grid.Column="3" Click="AddShortcutUrlButton_Click" ToolTipService.ToolTip="">
+                                        <TextBlock Text="&#xE774;" Style="{StaticResource IconText}"/>
+                                    </Button>
+                                </Grid>
+
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <GridView x:Name="ShortcutsList"
+                                              SelectionChanged="SelectionChanged_UpdateButtons"
+                                              IsItemClickEnabled="True"
+                                              ItemClick="ShortcutsList_ItemClick"
+                                              MinHeight="260"
+                                              SelectionMode="Single">
+                                        <GridView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3"/>
+                                            </ItemsPanelTemplate>
+                                        </GridView.ItemsPanel>
+                                        <GridView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:LaunchItem">
+                                                <Grid Width="92" Height="102" Margin="6" DoubleTapped="ShortcutTile_DoubleTapped">
+                                                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                                                        <Border Width="58" Height="58" CornerRadius="18" Background="{ThemeResource CuteMintBrush}" BorderBrush="{ThemeResource CuteBorderBrush}" BorderThickness="1">
+                                                            <TextBlock Text="{x:Bind IconGlyph}" FontFamily="{StaticResource CuteEmojiFont}" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <TextBlock Text="{x:Bind Name}" FontSize="12" FontWeight="SemiBold" TextAlignment="Center" TextTrimming="CharacterEllipsis" MaxLines="2" Width="88"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridView.ItemTemplate>
+                                    </GridView>
+                                </ScrollViewer>
+
+                                <StackPanel Grid.Row="2" Spacing="10">
+                                    <Border x:Name="ShortcutDetailsPanel" Visibility="Collapsed" Background="{ThemeResource CuteCardBrush}" CornerRadius="16" Padding="12" BorderBrush="{ThemeResource CuteBorderBrush}" BorderThickness="1">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                            <Border Width="42" Height="42" CornerRadius="16" Background="{ThemeResource CuteMintBrush}">
+                                                <Grid>
+                                                    <TextBlock x:Name="ShortcutDetailIcon" FontFamily="{StaticResource CuteEmojiFont}" FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <Image x:Name="ShortcutDetailImage" Stretch="UniformToFill" Width="26" Height="26" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                                                </Grid>
+                                            </Border>
+                                            <StackPanel Grid.Column="1" Spacing="2">
+                                                <TextBlock x:Name="ShortcutDetailName" FontWeight="SemiBold"/>
+                                                <TextBlock x:Name="ShortcutDetailTarget" FontSize="12" Foreground="{ThemeResource CuteMutedBrush}" TextTrimming="CharacterEllipsis"/>
+                                            </StackPanel>
+                                            <TextBlock x:Name="ShortcutDetailType" Grid.Column="2" FontSize="11" Foreground="{ThemeResource CuteAccentBrush}" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid x:Name="ShortcutActionsBar" ColumnDefinitions="*,*,*,*,*" ColumnSpacing="8" Visibility="Collapsed">
+                                        <Button x:Name="OpenShortcutButton" Click="OpenShortcutButton_Click" ToolTipService.ToolTip="">
+                                            <TextBlock Text="&#xE768;" Style="{StaticResource IconText}"/>
+                                        </Button>
+                                        <Button x:Name="EditShortcutButton" Grid.Column="1" Click="EditShortcutButton_Click" ToolTipService.ToolTip="">
+                                            <TextBlock Text="&#xE70F;" Style="{StaticResource IconText}"/>
+                                        </Button>
+                                        <Button x:Name="MoveShortcutUpButton" Grid.Column="2" Click="MoveShortcutUpButton_Click" ToolTipService.ToolTip="">
+                                            <TextBlock Text="&#xE70E;" Style="{StaticResource IconText}"/>
+                                        </Button>
+                                        <Button x:Name="MoveShortcutDownButton" Grid.Column="3" Click="MoveShortcutDownButton_Click" ToolTipService.ToolTip="">
+                                            <TextBlock Text="&#xE70D;" Style="{StaticResource IconText}"/>
+                                        </Button>
+                                        <Button x:Name="DeleteShortcutButton" Grid.Column="4" Click="DeleteShortcutButton_Click" ToolTipService.ToolTip="">
+                                            <TextBlock Text="&#xE74D;" Style="{StaticResource IconText}"/>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                        </Grid>
+
+                        <ScrollViewer x:Name="ClipboardView" Visibility="Collapsed">
+                            <StackPanel Spacing="12">
+                                <TextBlock x:Name="ClipboardHintText" Text="" FontSize="13" Foreground="{ThemeResource CuteMutedBrush}"/>
+                                <ListView x:Name="ClipboardList" ItemClick="ClipboardList_ItemClick" IsItemClickEnabled="True" MinHeight="420">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:ClipboardEntry">
+                                            <Border Background="{ThemeResource CuteCardBrush}" CornerRadius="16" Padding="10" BorderBrush="{ThemeResource CuteBorderBrush}" BorderThickness="1">
+                                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                                <Border Width="54" Height="54" CornerRadius="16" Background="{ThemeResource CuteLavenderBrush}">
+                                                    <Grid>
+                                                        <Image Source="{x:Bind Content}" Stretch="UniformToFill"/>
+                                                        <TextBlock Text="📋" FontFamily="{StaticResource CuteEmojiFont}" FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </Border>
+                                                <StackPanel Grid.Column="1" Spacing="2">
+                                                    <TextBlock Text="{x:Bind Preview}" Foreground="{ThemeResource CuteInkBrush}" TextWrapping="WrapWholeWords" MaxLines="2"/>
+                                                    <TextBlock Text="{x:Bind Kind}" FontSize="12" Foreground="{ThemeResource CuteMutedBrush}"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                                                    <Button Width="38" Height="38" Padding="0" Click="PreviewClipboardButton_Click" Tag="{x:Bind Id}" ToolTipService.ToolTip="">
+                                                        <TextBlock Text="&#xE8A7;" Style="{StaticResource IconText}"/>
+                                                    </Button>
+                                                    <Button Width="38" Height="38" Padding="0" Click="DeleteClipboardButton_Click" Tag="{x:Bind Id}" ToolTipService.ToolTip="">
+                                                        <TextBlock Text="&#xE74D;" Style="{StaticResource IconText}"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="FocusView" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="20" Padding="10,0">
+                                <StackPanel Spacing="12">
+                                    <TextBlock x:Name="FocusTimerHeader" Text="" FontSize="17" FontWeight="SemiBold"/>
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HorizontalAlignment="Center">
+                                        <TextBox x:Name="FocusMinutesBox" Text="25" Width="80" PlaceholderText="" InputScope="Number" TextAlignment="Center"/>
+                                        <TextBlock x:Name="FocusMinutesLabel" Grid.Column="1" Text="" VerticalAlignment="Center" Foreground="{ThemeResource CuteMutedBrush}"/>
+                                    </Grid>
+                                    <TextBlock x:Name="FocusTimeText" Text="25:00" FontSize="56" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,4,0,4"/>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8" HorizontalAlignment="Center" MaxWidth="300">
+                                        <Button x:Name="StartFocusButton" HorizontalAlignment="Stretch" Click="StartFocusButton_Click" Background="{ThemeResource CuteMintBrush}">
+                                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                                <TextBlock Text="&#xE768;" Style="{StaticResource IconText}"/>
+                                                <TextBlock x:Name="StartFocusBtnText" Text=""/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="PauseFocusButton" Grid.Column="1" HorizontalAlignment="Stretch" Click="PauseFocusButton_Click" IsEnabled="False">
+                                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                                <TextBlock x:Name="PauseFocusIcon" Text="&#xE769;" Style="{StaticResource IconText}"/>
+                                                <TextBlock x:Name="PauseFocusBtnText" Text=""/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="ResetFocusButton" Grid.Column="2" HorizontalAlignment="Stretch" Click="ResetFocusButton_Click" IsEnabled="False">
+                                            <TextBlock Text="&#xE72C;" Style="{StaticResource IconText}" HorizontalAlignment="Center"/>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+
+                                <Border Height="1" Background="{ThemeResource CuteBorderBrush}" Opacity="0.5" Margin="0,4"/>
+
+                                <StackPanel Spacing="12">
+                                    <TextBlock x:Name="FocusCounterHeader" Text="" FontSize="17" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="CounterTimeText" Text="00:00" FontSize="56" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,4,0,4"/>
+                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8" HorizontalAlignment="Center" MaxWidth="300">
+                                        <Button x:Name="StartCounterButton" HorizontalAlignment="Stretch" Click="StartCounterButton_Click" Background="{ThemeResource CuteMintBrush}">
+                                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                                <TextBlock Text="&#xE768;" Style="{StaticResource IconText}"/>
+                                                <TextBlock x:Name="StartCounterBtnText" Text=""/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="PauseCounterButton" Grid.Column="1" HorizontalAlignment="Stretch" Click="PauseCounterButton_Click" IsEnabled="False">
+                                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                                <TextBlock x:Name="PauseCounterIcon" Text="&#xE769;" Style="{StaticResource IconText}"/>
+                                                <TextBlock x:Name="PauseCounterBtnText" Text=""/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="ResetCounterButton" Grid.Column="2" HorizontalAlignment="Stretch" Click="ResetCounterButton_Click" IsEnabled="False">
+                                            <TextBlock Text="&#xE72C;" Style="{StaticResource IconText}" HorizontalAlignment="Center"/>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <Grid Grid.Row="3" Padding="18,0,14,14" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
+                        <TextBlock x:Name="StatusText" Text="" FontSize="12" Foreground="{ThemeResource CuteMutedBrush}" VerticalAlignment="Center"/>
+                        <ToggleSwitch x:Name="SoundToggle" Grid.Column="1" Header="" Toggled="SoundToggle_Toggled" ToolTipService.ToolTip=""/>
+                        <Border x:Name="ResizeGrip"
+                                Grid.Column="2"
+                                Width="34"
+                                Height="34"
+                                CornerRadius="12"
+                                Background="{ThemeResource CuteLavenderBrush}"
+                                BorderBrush="{ThemeResource CuteBorderBrush}"
+                                BorderThickness="1"
+                                PointerPressed="ResizeGrip_PointerPressed"
+                                PointerMoved="ResizeGrip_PointerMoved"
+                                PointerReleased="ResizeGrip_PointerReleased"
+                                ToolTipService.ToolTip="">
+                            <TextBlock Text="&#xE740;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="15"
+                                       Foreground="{ThemeResource CuteInkBrush}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

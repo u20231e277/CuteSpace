@@ -1,0 +1,33 @@
+# Build output
+bin/
+obj/
+dist/
+release/
+*.zip
+*.rar
+*.7z
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+
+# Logs and local data
+*.log
+logs/
+data.json
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+~$*
