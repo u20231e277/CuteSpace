@@ -1,6 +1,6 @@
-# CuteSpace
+# YourSpace
 
-CuteSpace is a small floating Windows companion for organizing modes, shortcuts, routines, and recent clipboard items from one soft, always-available bubble.
+YourSpace is a small floating Windows companion for organizing modes, shortcuts, routines, and recent clipboard items from one soft, always-available bubble.
 
 It is built with C#, .NET 8, and WinUI 3. The app runs locally on your PC and stores its data in your Windows user profile.
 
@@ -56,7 +56,7 @@ For manual builds, use Visual Studio Developer PowerShell and publish the `CuteS
 
 ## Data And Privacy
 
-CuteSpace works locally. It does not upload your modes, shortcuts, clipboard history, settings, or logs. See `PRIVACY.md` for details.
+YourSpace works locally. It does not upload your modes, shortcuts, clipboard history, settings, or logs. See `PRIVACY.md` for details.
 
 ## Project Structure
 
@@ -76,9 +76,8 @@ release/
 
 ## Donations
 
-If CuteSpace helps you, you can support development on Ko-fi:
-
-https://ko-fi.com/tu_usuario
+If YourSpace helps you, you can support development on Ko-fi:
+https://ko-fi.com/bubuperu
 
 Replace the link above with your Ko-fi page before publishing.
 
