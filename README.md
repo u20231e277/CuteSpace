@@ -17,6 +17,13 @@ It is built with C#, .NET 8, and WinUI 3. The app runs locally on your PC and st
 ## Screenshots
 
 Screenshots can be added in `docs/screenshots/`.
+<img width="699" height="965" alt="6" src="https://github.com/user-attachments/assets/ce246415-1a22-4d1d-b91c-0ebd90ba24cf" />
+<img width="744" height="983" alt="5" src="https://github.com/user-attachments/assets/fb1b1876-8d54-417f-bbad-914708aa6764" />
+<img width="748" height="967" alt="4" src="https://github.com/user-attachments/assets/83a0499f-c9fc-444d-b7d0-0bc38048179f" />
+<img width="728" height="986" alt="3" src="https://github.com/user-attachments/assets/126c5164-1a3e-448b-8f10-c5505b13e4ba" />
+<img width="712" height="949" alt="2" src="https://github.com/user-attachments/assets/3b0dd818-76a4-4599-a420-a5e55b4d4d5a" />
+<img width="635" height="734" alt="1" src="https://github.com/user-attachments/assets/4927567f-608a-45fb-9d4c-a031f4fc349e" />
+
 
 ## Requirements
 
